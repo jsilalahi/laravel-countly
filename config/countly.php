@@ -10,13 +10,13 @@ return [
     | Countly is disabled by default. You can override the value by setting 
     | enable to true or false instead of null.
     |
-    | You can provide an array of URI's that must be ignored (eg. 'admin/*')
+    | [WIP] You can provide an array of URI's that must be ignored (eg. 'admin/*')
     */
 
     'enabled' => env('COUNTLY_ENABLED', false),
-    'except' => [
-        'admin/*' // Current not available
-    ],
+    // 'except' => [
+    //     'admin/*'
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -90,10 +90,10 @@ return [
     |           the custom script URL at COUNTLY_SCRIPT_CUSTOM
     */
 
-    'script' => env('COUNTLY_SCRIPT', 'server'),
+    'script' => env('COUNTLY_SCRIPT', 'cdnjs'),
 
     'script_src' => [
-        'server' => env('COUNTLY_HOST', '') . '/sdk/web/countly.min.js',
+        'server' => env('COUNTLY_HOST') . '/sdk/web/countly.min.js',
         'cdnjs' => 'https://cdnjs.cloudflare.com/ajax/libs/countly-sdk-web/18.8.2/countly.min.js',
         'jsdeliver' => 'https://cdn.jsdelivr.net/countly-sdk-web/latest/countly.min.js',
     ],

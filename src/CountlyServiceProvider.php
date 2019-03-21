@@ -20,12 +20,34 @@ class CountlyServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $config = realpath(__DIR__ . '/../../config/countly.php');
+        $configPath = realpath(__DIR__ . '/../config/countly.php');
 
-        $this->mergeConfigFrom($config, 'countly');
+        $this->mergeConfigFrom($configPath, 'countly');
 
-        $this->publishes([
-            $config => config_path('countly.php'),
-        ]);
+        $this->publishes([$configPath => $this->getConfigPath()], 'countly');
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton(Countly::class, function () {
+            return new Countly(
+                $this->app['config']->get('countly')
+            );
+        });
+    }
+
+    /**
+     * Get the config path
+     *
+     * @return string
+     */
+    protected function getConfigPath()
+    {
+        return config_path('countly.php');
     }
 }
